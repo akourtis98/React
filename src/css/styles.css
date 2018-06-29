@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+}
+
+header{
+    padding: 10px;
+    background: #03a9f4;
+}
+
+.logo{
+    color: #fff;
+    font-family: 'Anton';
+    text-align: 'center';
+}
