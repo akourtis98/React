@@ -12,3 +12,7 @@ header{
     font-family: 'Anton';
     text-align: 'center';
 }
+
+#newsfeed{ 
+    padding: 10px;
+}

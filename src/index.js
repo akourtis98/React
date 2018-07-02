@@ -11,6 +11,7 @@ class App extends Component{
     state = {
         news: JSON
     }
+    
     render(){
         console.log(this.state.news);
         return (
