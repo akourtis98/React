@@ -12,11 +12,15 @@ class App extends Component{
         news: JSON
     }
     
+    getKeyword = e => {
+        console.log(e.target.value)
+    }
+
     render(){
         console.log(this.state.news);
         return (
             <div>
-                <Header/>
+                <Header keywords={this.getKeyword}/>
                 <NewsList news={this.state.news}/>
             </div>
         )
