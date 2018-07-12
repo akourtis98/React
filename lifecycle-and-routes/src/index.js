@@ -8,6 +8,7 @@ import Home from './components/home';
 import Profile from './components/profiles';
 import Posts from './components/posts';
 import PostItem from './components/post_item';
+import Life from './components/life';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
                     <br/>
                     <NavLink to="/">Home </NavLink><br/>
                     <NavLink to="/Profile">Profiles </NavLink><br/>
+                    <NavLink to="/life">life </NavLink><br/>
                     <NavLink to={{
                         pathname: '/posts'
                     }}>Posts </NavLink><br/>
@@ -26,6 +28,7 @@ const App = () => {
                 </header>
                 <Route path="/posts" component={Posts} exact/>
                 <Route path="/profile" component={Profile} exact/>
+                <Route path="/life" component={Life} exact/>
                 <Route path="/posts/:id" component={PostItem} exact/>
                 <Route path="/" component={Home} exact/>
             </div>
