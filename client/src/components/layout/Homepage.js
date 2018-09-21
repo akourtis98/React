@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAllposts } from '../../actions/postsActions';
 import Article from '../common/Article';
+import Spinner from "../common/Spinner";
 
 class Homepage extends Component {
   componentWillMount() {
@@ -11,11 +12,11 @@ class Homepage extends Component {
 
   render() {
     const posts = (
-      this.props.posts.posts.map(article => (
-        <div key={article.id}>
+      this.props.posts.posts.map(post => (
+        <div key={post._id}>
           <Article
-            title={article.title}
-            id={article._id}
+            title={post.title}
+            id={post._id}
           />
         </div>
       )
@@ -27,7 +28,7 @@ class Homepage extends Component {
           <div className="col-md-12">
             <h2> These are all the posts: </h2>
             <hr />
-            {posts}
+            {this.props.loading ? <div> <Spinner /> </div> : <div> {posts} </div>}
           </div>
         </div>
       </div>
@@ -36,11 +37,13 @@ class Homepage extends Component {
 }
 
 Homepage.propTypes = {
+  loading: PropTypes.bool,
   posts: PropTypes.object.isRequired,
   getAllposts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  loading: state.posts.loading,
   posts: state.posts,
 });
 

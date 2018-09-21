@@ -4,10 +4,12 @@ const passport = require('passport');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
+const sendgrid = require('sendgrid')('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');
 
 // Load Input Validation
 const validatePost = require("../Validation/Posts");
 const validateLogin = require("../Validation/Login");
+const validateEmailForm = require("../Validation/Email");
 
 // Post model
 const Post = require('../models/Post');
@@ -22,7 +24,7 @@ router.get('/get',
     Post.find()
       .sort({ date: -1 })
       .then(posts => res.json(posts))
-      .catch(err => res.status(404).json({ nopostsfound: 'No articles found' }));
+      .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
   });
 
 // @route   GET routes/index/get/:id
@@ -33,7 +35,7 @@ router.get('/get/:id',
     Post.findById(req.params.id)
       .then(post => res.json(post))
       .catch(err =>
-        res.status(404).json({ nopostfound: 'No article found with that userid' })
+        res.status(404).json({ nopostfound: 'No post found with that userid' })
       );
   });
 
@@ -120,10 +122,75 @@ router.post("/login", (req, res) => {
   });
 });
 
-// delete post
+// @route   DELETE routes/index/:id
+// @desc    Delete post
+// @access  Private
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Post.findById(req.params.id)
+      .then(post => {
+        post
+          .remove()
+          .then(() => res.json({ success: true }));
+      })
+      .catch(err => res.status(404).json({ postnotfound: "fail" }));
+  }
+);
+
 
 // update post
 
+// @route   POST api/profile
+// @desc    Edit user profile
+// @access  Private
+router.post(
+  '/edit/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validatePost(req.body);
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
 
+    const postFields = {};
+    postFields.title = req.body.title;
+    postFields.body = req.body.body;
+
+    // Update
+    Post.findOneAndUpdate(
+      {
+        _id: req.params.id
+      },
+      { $set: postFields },
+      { new: true }
+    )
+      .then(post => res.json(post))
+      .catch(err => res.json(err));
+  });
+
+router.post('/email', (req, res) => {
+  const { errors, isValid } = validateEmailForm(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    // Return any errors with 400 status
+    return res.status(400).json(errors);
+  }
+
+  try {
+    sendgrid.send({
+      to: 'akourtisdev@gmail.com',
+      from: req.body.email,
+      subject: req.body.subject,
+      text: req.body.message
+    })
+
+    return res.json({ err: "success!!!" });
+  } catch (err) { return res.status(500).json({ err: "Sorry, something went wrong: " + err }) };
+});
 
 module.exports = router;

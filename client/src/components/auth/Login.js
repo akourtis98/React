@@ -8,12 +8,8 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                email: '',
-                password: ''
-            },
-            errors: {},
-            message: ''
+            email: '',
+            password: ''
         }
     }
 
@@ -28,33 +24,23 @@ class Login extends Component {
             this.props.history.push('/');
         }
 
-        if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors });
-        }
     }
 
 
     login = e => {
         e.preventDefault();
-        console.log("user: " + this.user);
-        this.props.loginUser(this.state.user, this.props.history);
+        this.props.loginUser(this.state, this.props.history);
     };
 
     handleChangeEmail = e => {
         this.setState({
-            user: {
-                ...this.state.user,
-                email: e.target.value
-            }
+            email: e.target.value
         });
     }
 
     handleChangePassword = e => {
         this.setState({
-            user: {
-                ...this.state.user,
-                password: e.target.value
-            }
+            password: e.target.value
         });
     }
 

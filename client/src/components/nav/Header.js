@@ -48,6 +48,11 @@ class Header extends Component {
                                             Log out
                                 </a>
                                     </li>
+                                    <li>
+                                        <a href="/dashboard" className="nav-link">
+                                            Manage posts
+                                </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

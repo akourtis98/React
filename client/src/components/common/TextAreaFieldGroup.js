@@ -29,13 +29,13 @@ const TextAreaFieldGroup = ({
 };
 
 TextAreaFieldGroup.propTypes = {
-    name: PropTypes.string.isRequired,
-    rows: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    rows: PropTypes.string,
+    placeholder: PropTypes.string,
     label: PropTypes.string,
     error: PropTypes.string,
-    info: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    info: PropTypes.string,
+    onChange: PropTypes.func,
 }
 
 export default TextAreaFieldGroup;

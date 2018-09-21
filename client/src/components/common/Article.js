@@ -18,7 +18,7 @@ const Article = ({
 
 Article.propTypes = {
     title: PropTypes.string.isRequired,
-    id: PropTypes.number,
+    id: PropTypes.string,
 }
 
 export default Article;

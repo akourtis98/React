@@ -8,3 +8,4 @@ export const GET_POST = "GET_POST";
 export const LOADING = "LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const CLEAR_CURRENT_USER = "CLEAR_CURRENT_USER";
+export const SEND_MAIL = "SEND_MAIL";

@@ -19,6 +19,8 @@ import About from "./components/layout/About";
 import Post from "./components/layout/Post";
 import Login from "./components/auth/Login";
 import CreatePost from "./components/layout/CreatePost";
+import EditPost from "./components/layout/EditPost";
+import Dashboard from "./components/layout/Dashboard";
 
 import "./resources/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -59,8 +61,10 @@ class App extends Component {
               <Route exact path="/Contact" component={Contact} />
               <Route exact path="/CV" component={Contact} />
               <PrivateRoute exact path="/post/:id" component={Post} />
+              <PrivateRoute exact path="/edit/:id" component={EditPost} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/new" component={CreatePost} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
             <Footer />
           </div>

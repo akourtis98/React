@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPost } from '../../actions/postsActions';
 import WholeArticle from '../common/WholeArticle';
+import Spinner from "../common/Spinner";
 
 class Post extends Component {
     componentWillMount() {
@@ -23,7 +24,7 @@ class Post extends Component {
             <div className="dashboard">
                 <div className="container">
                     <div className="col-md-12">
-                        {dsiplayArticle}
+                        {this.props.loading ? <div> <Spinner /> </div> : <div> {dsiplayArticle} </div>}
                     </div>
                 </div>
             </div>

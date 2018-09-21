@@ -13,7 +13,7 @@ const TextFieldGroup = ({
 }) => {
     return (
         <div className="form-group">
-            <label htmlFor="exampleInputEmail">
+            <label htmlFor={name}>
                 <h4>{label}</h4>
             </label>
             <input
@@ -34,13 +34,13 @@ const TextFieldGroup = ({
 };
 
 TextFieldGroup.propTypes = {
-    name: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    placeholder: PropTypes.string,
     label: PropTypes.string,
     type: PropTypes.string,
     error: PropTypes.string,
-    info: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    info: PropTypes.string,
+    onChange: PropTypes.func
 };
 
 export default TextFieldGroup;

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { submitPost } from "../../actions/postsActions.js";
 import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
+import Spinner from "../common/Spinner";
 
 class CreatePost extends Component {
     constructor(props) {
@@ -49,43 +50,47 @@ class CreatePost extends Component {
     render() {
         const errors = this.props.errors;
 
+        const form = (
+            <div>
+                <a href="/">
+                    <button className="btn btn-light">
+                        Click here to go back
+                                     </button>
+                </a>
+                <p className="lead text-center">Write an article</p>
+                <form onSubmit={this.createPost}>
+                    <TextFieldGroup
+                        placeholder=""
+                        name="title"
+                        type="text"
+                        label="Enter the title of choice:"
+                        info="Please don't make it clickbait."
+                        onChange={this.handleChangeTitle}
+                        error={errors.title}
+                    />
+
+                    <TextAreaFieldGroup
+                        placeholder=""
+                        name="body"
+                        rows="5"
+                        label="Write your article here"
+                        info="Make sure that the content of the article is not offensive."
+                        onChange={this.handleChangeBody}
+                        error={errors.body}
+                    />
+                    <button type="submit" className="btn btn-info btn-block mt-4">
+                        Submit
+                                    </button>
+                </form>
+            </div>
+        )
         return (
             <div className="App">
                 <div className="register">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-8 m-auto">
-                                <a href="/">
-                                    <button className="btn btn-light">
-                                        Click here to go back
-                                     </button>
-                                </a>
-                                <p className="lead text-center">Write an article</p>
-                                <form onSubmit={this.createPost}>
-                                    <TextFieldGroup
-                                        placeholder=""
-                                        name="title"
-                                        type="text"
-                                        label="Enter the title of choice:"
-                                        info="Please don't make it clickbait."
-                                        onChange={this.handleChangeTitle}
-                                        error={errors.title}
-                                    />
-
-                                    <TextAreaFieldGroup
-                                        placeholder=""
-                                        name="body"
-                                        rows="5"
-                                        label="Write your article here"
-                                        info="Make sure that the content of the article is not offensive."
-                                        onChange={this.handleChangeBody}
-                                        error={errors.body}
-                                    />
-                                    <button type="submit" className="btn btn-info btn-block mt-4">
-                                        Submit
-                                    </button>
-                                </form>
-                                {this.state.message}
+                                {this.props.loading ? <div> <Spinner /> </div> : <div> {form} </div>}
                             </div>
                         </div>
                     </div>

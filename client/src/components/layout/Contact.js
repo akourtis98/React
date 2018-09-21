@@ -1,50 +1,96 @@
-import React from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { sendMail } from '../../actions/postsActions.js';
+import TextFieldGroup from '../common/TextFieldGroup.js';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup.js';
 
-const Contact = () => (
-  <div>
-    <div class="container container-main">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="card bg-light card-body mb-3">
-            <h2>Contact Us</h2>
-            <form>
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label>Email address</label>
-                <input type="email" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label>Message</label>
-                <textarea class="form-control"></textarea>
-              </div>
-              <button type="submit" class="btn btn-secondary">Submit</button>
-            </form>
-            <br />
-            <br />
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1463.0125226942992!2d-71.0071694509262!3d42.83008476139521!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e2fd2c74fb2e89%3A0x4b2b1199a9175d3f!2s89+W+Main+St%2C+Merrimac%2C+MA+01860!5e0!3m2!1sen!2sus!4v1423876507085"
-              width="700" height="450" frameborder="0"></iframe>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card bg-light card-body mb-3">
-            <h4>Blog Search</h4>
-            <div class="input-group">
-              <input type="text" class="form-control" /> <span class="input-group-btn">
+class Contact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      subject: '',
+      email: '',
+      message: ''
+    }
 
-                <button class="btn btn-secondary" type="button">
+    this.onChange = this.onFormChange.bind(this);
+    this.onSubmit = this.onFormSubmit.bind(this);
+  }
 
-                  <span class="fa fa-search"></span>
-                </button>
-              </span>
+  onFormChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  onFormSubmit = e => {
+    e.preventDefault();
+    const data = this.state;
+    this.props.sendMail(this.props.history, data);
+  };
+
+  render() {
+    const { errors } = this.props;
+
+    return (
+      <div className="App">
+        <form onSubmit={this.onFormSubmit}>
+          <div className="register">
+            <div className="container">
+              <div className="row">
+                <div className="col-md-8 m-auto">
+                  <a href="/">
+                    <button className="btn btn-light">
+                      Click here to go back
+                    </button>
+                  </a>
+                  <TextFieldGroup
+                    name="subject"
+                    type="text"
+                    label="Subject:  "
+                    info="Please don't make it clickbait."
+                    onChange={this.onChange}
+                    error={errors.subject}
+                  />
+
+                  <TextFieldGroup
+                    name="email"
+                    type="email"
+                    label="The email of yours"
+                    info="Please don't make it clickbait."
+                    onChange={this.onChange}
+                    error={errors.email}
+                  />
+
+                  <TextAreaFieldGroup
+                    name="message"
+                    rows="5"
+                    label="Update the content of the message here"
+                    info="Make sure that the content of the article is not offensive."
+                    onChange={this.onChange}
+                    error={errors.message}
+                  />
+                  <button type="button" className="btn btn-info btn-block mt-4">Submit</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div >
-);
+        </form>
+      </div >
+    );
+  }
+}
 
-export default Contact;
+Contact.propTypes = {
+  sendMail: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { sendMail })(
+  Contact
+);
