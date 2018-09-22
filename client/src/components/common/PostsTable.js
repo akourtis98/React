@@ -20,6 +20,7 @@ class PostsTable extends Component {
                         {this.props.posts.map(post => (
                             <tr key={post._id}>
                                 <td>{post.title}</td>
+                                <td>{post.body}</td>
                                 <td>
                                     <a href={'/edit/' + post._id}
                                     >

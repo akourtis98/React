@@ -22,8 +22,8 @@ const WholeArticle = ({
 }
 
 WholeArticle.propTypes = {
-    title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired
+    title: PropTypes.string,
+    body: PropTypes.string
 }
 
 export default WholeArticle;

@@ -193,4 +193,19 @@ router.post('/email', (req, res) => {
   } catch (err) { return res.status(500).json({ err: "Sorry, something went wrong: " + err }) };
 });
 
+router.get('/search/:handle', (req, res) => {
+  let data = [];
+
+  Post.find()
+    .then(posts => {
+      posts.forEach(el => {
+        if (el.title.toLowerCase().includes(req.params.handle.toLowerCase())) {
+          data.push(el);
+        }
+      });
+      return res.json(data)
+    })
+    .catch(err => res.status(404).json({ nopostsfound: 'No posts found' + err }));
+});
+
 module.exports = router;

@@ -33,6 +33,7 @@ export const submitPost = (post, history) => dispatch => {
 
 // Add Post
 export const editPost = (history, id, data) => dispatch => {
+    setLoading();
     axios
         .post(`http://localhost:5000/routes/index/edit/${id}`, data)
         .then(res => {
@@ -52,6 +53,7 @@ export const editPost = (history, id, data) => dispatch => {
 
 // Delete Post
 export const deletePost = id => dispatch => {
+    setLoading();
     axios
         .delete(`http://localhost:5000/routes/index/${id}`)
         .then(res => {
@@ -88,6 +90,7 @@ export const getAllposts = () => dispatch => {
             })
         );
 };
+
 // Get article
 export const getPost = id => dispatch => {
     setLoading();
@@ -108,6 +111,7 @@ export const getPost = id => dispatch => {
 };
 
 export const sendMail = (history, data) => dispatch => {
+    setLoading();
     axios
         .post('http://localhost:5000/routes/index/email', data)
         .then(res =>
@@ -123,6 +127,32 @@ export const sendMail = (history, data) => dispatch => {
                 payload: err.response.data
             }))
 }
+
+// Post post
+export const getSuggestedPosts = handle => dispatch => {
+    if (handle === null || handle === "") {
+        return dispatch({
+            type: GET_POSTS,
+            payload: {}
+        });
+    } else {
+        axios
+            .get(`http://localhost:5000/routes/index/search/${handle}`)
+            .then(res => {
+                return dispatch({
+                    type: GET_POSTS,
+                    payload: res.data
+                });
+            })
+            .catch(err =>
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                })
+            );
+    }
+
+};
 
 // Set loading state
 export const setLoading = () => {
