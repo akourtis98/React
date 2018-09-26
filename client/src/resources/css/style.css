@@ -30,3 +30,7 @@ footer p {
     height:150px;
     width:700px !important;
 }
+
+.container-small{
+    font-size: 13px;
+}

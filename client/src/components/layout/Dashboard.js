@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAllposts } from '../../actions/postsActions';
-import PostsTable from '../common/PostsTable';
+import PostsTable from '../common/post/PostsTable';
 
 class Dashboard extends Component {
     componentWillMount() {

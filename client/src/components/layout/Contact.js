@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sendMail } from '../../actions/postsActions.js';
-import TextFieldGroup from '../common/TextFieldGroup.js';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup.js';
+import TextFieldGroup from '../common/other/TextFieldGroup.js';
+import TextAreaFieldGroup from '../common/other/TextAreaFieldGroup.js';
 
 class Contact extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Contact extends Component {
 
     return (
       <div className="App">
-        <form onSubmit={this.onFormSubmit}>
+        <form onSubmit={this.onSubmit}>
           <div className="register">
             <div className="container">
               <div className="row">
@@ -71,7 +71,7 @@ class Contact extends Component {
                     onChange={this.onChange}
                     error={errors.message}
                   />
-                  <button type="button" className="btn btn-info btn-block mt-4">Submit</button>
+                  <button type="submit" className="btn btn-info btn-block mt-4">Submit</button>
                 </div>
               </div>
             </div>

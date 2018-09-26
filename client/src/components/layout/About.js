@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getSuggestedPosts } from "../../actions/postsActions";
 import { connect } from 'react-redux';
-import Suggestions from '../common/Suggestions';
+import Suggestions from '../common/other/Suggestions';
 
 class About extends Component {
   constructor(props) {

@@ -4,7 +4,8 @@ const passport = require('passport');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
-const sendgrid = require('sendgrid')('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');
+const sendgridkey = require("../config/sendgridkey").key;
+const sendgrid = require('sendgrid')(sendgridkey);
 
 // Load Input Validation
 const validatePost = require("../Validation/Posts");
@@ -59,6 +60,7 @@ router.post(
     const newPost = new Post({
       title: req.body.title,
       body: req.body.body,
+      date: Date.now()
     });
 
     newPost
@@ -173,13 +175,13 @@ router.post(
   });
 
 router.post('/email', (req, res) => {
-  const { errors, isValid } = validateEmailForm(req.body);
+  // const { errors, isValid } = validateEmailForm(req.body);
 
-  // Check Validation
-  if (!isValid) {
-    // Return any errors with 400 status
-    return res.status(400).json(errors);
-  }
+  // // Check Validation
+  // if (!isValid) {
+  //   // Return any errors with 400 status
+  //   return res.status(400).json(errors);
+  // }
 
   try {
     sendgrid.send({

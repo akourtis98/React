@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAllposts } from '../../actions/postsActions';
-import Article from '../common/Article';
-import Spinner from "../common/Spinner";
+import Spinner from "../common/spinner/Spinner";
+import PostsFeed from '../common/post/PostsFeed'
 
 class Homepage extends Component {
   componentWillMount() {
@@ -11,16 +11,14 @@ class Homepage extends Component {
   }
 
   render() {
-    const posts = (
-      this.props.posts.posts.map(post => (
-        <div key={post._id}>
-          <Article
-            title={post.title}
-            id={post._id}
-          />
-        </div>
-      )
-      ))
+    let content;
+    const { posts } = this.props.posts;
+
+    if (posts === null) {
+      content = <Spinner />;
+    } else {
+      content = <PostsFeed posts={posts} />;
+    }
 
     return (
       <div className="dashboard">
@@ -28,7 +26,7 @@ class Homepage extends Component {
           <div className="col-md-12">
             <h2> These are all the posts: </h2>
             <hr />
-            {this.props.loading ? <div> <Spinner /> </div> : <div> {posts} </div>}
+            {content}
           </div>
         </div>
       </div>

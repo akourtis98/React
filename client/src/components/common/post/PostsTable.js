@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { deletePost } from '../../actions/postsActions';
+import { deletePost } from '../../../actions/postsActions';
 import { connect } from 'react-redux';
 
 class PostsTable extends Component {

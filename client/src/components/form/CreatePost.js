@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { submitPost } from "../../actions/postsActions.js";
-import TextFieldGroup from "../common/TextFieldGroup";
-import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
-import Spinner from "../common/Spinner";
+import TextFieldGroup from "../common/other/TextFieldGroup";
+import TextAreaFieldGroup from "../common/other/TextAreaFieldGroup";
+import Spinner from "../common/spinner/Spinner";
 
 class CreatePost extends Component {
     constructor(props) {

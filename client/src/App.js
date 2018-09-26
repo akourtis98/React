@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 // For client side routes that need user to be authed
-import PrivateRoute from "./components/common/PrivateRoute";
+import PrivateRoute from "./components/common/routes/PrivateRoute";
 
 // import Routes from './components/Routes';
 import Navbar from "./components/nav/Header";
@@ -16,11 +16,12 @@ import Footer from "./components/nav/Footer";
 import Homepage from "./components/layout/Homepage";
 import Contact from "./components/layout/Contact";
 import About from "./components/layout/About";
-import Post from "./components/layout/Post";
+import Post from "./components/common/post/Post";
 import Login from "./components/auth/Login";
-import CreatePost from "./components/layout/CreatePost";
-import EditPost from "./components/layout/EditPost";
+import CreatePost from "./components/form/CreatePost";
+import EditPost from "./components/form/EditPost";
 import Dashboard from "./components/layout/Dashboard";
+import CV from "./components/layout/CV";
 
 import "./resources/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -59,7 +60,7 @@ class App extends Component {
               <Route exact path="/" component={Homepage} />
               <Route exact path="/About" component={About} />
               <Route exact path="/Contact" component={Contact} />
-              <Route exact path="/CV" component={Contact} />
+              <Route exact path="/resume" component={CV} />
               <PrivateRoute exact path="/post/:id" component={Post} />
               <PrivateRoute exact path="/edit/:id" component={EditPost} />
               <Route exact path="/login" component={Login} />

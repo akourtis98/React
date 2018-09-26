@@ -16,12 +16,11 @@ export const submitPost = (post, history) => dispatch => {
     setLoading();
     axios
         .post("http://localhost:5000/routes/index/", post)
-        .then(res => {
-            return dispatch({
-                type: ADD_POST,
-                payload: res.data
-            });
+        .then(res => dispatch({
+            type: ADD_POST,
+            payload: res.data
         })
+        )
         .then(res => history.push('/'))
         .catch(err =>
             dispatch({
@@ -36,13 +35,37 @@ export const editPost = (history, id, data) => dispatch => {
     setLoading();
     axios
         .post(`http://localhost:5000/routes/index/edit/${id}`, data)
-        .then(res => {
-            return dispatch({
-                type: ADD_POST,
-                payload: res.data
-            });
+        .then(res => dispatch({
+            type: ADD_POST,
+            payload: res.data
         })
+        )
         .then(res => history.push('/dashboard'))
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+// Add Like
+export const addLike = id => dispatch => {
+    axios
+        .post(`http://localhost:5000/routes/index/like/${id}`)
+        .then(res => dispatch(getAllposts()))
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+
+// Remove Like
+export const removeLike = id => dispatch => {
+    axios
+        .post(`http://localhost:5000/routes/index/unlike/${id}`)
+        .then(res => dispatch(getAllposts()))
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
@@ -111,9 +134,10 @@ export const getPost = id => dispatch => {
 };
 
 export const sendMail = (history, data) => dispatch => {
+    console.log("chedked");
     setLoading();
     axios
-        .post('http://localhost:5000/routes/index/email', data)
+        .post('http://localhost:5000/routes/index/email/', data)
         .then(res =>
             dispatch({
                 type: SEND_MAIL,

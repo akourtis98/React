@@ -34,7 +34,7 @@ class Header extends Component {
                                 </a>
                                     </li>
                                     <li>
-                                        <a href="/contact" className="nav-link">
+                                        <a href="/resume" className="nav-link">
                                             CV
                                 </a>
                                     </li>
@@ -83,7 +83,7 @@ class Header extends Component {
                                 </a>
                                     </li>
                                     <li>
-                                        <a href="/contact" className="nav-link">
+                                        <a href="/resume" className="nav-link">
                                             CV
                                 </a>
                                     </li>

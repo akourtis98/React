@@ -10,6 +10,9 @@ const PostSchema = new Schema({
     body: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date
     }
 })
 

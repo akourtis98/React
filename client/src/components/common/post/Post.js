@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPost } from '../../actions/postsActions';
-import WholeArticle from '../common/WholeArticle';
-import Spinner from "../common/Spinner";
+import { getPost } from '../../../actions/postsActions';
+import WholeArticle from './WholeArticle';
+import Spinner from "../spinner/Spinner";
 
 class Post extends Component {
     componentWillMount() {
@@ -24,7 +24,7 @@ class Post extends Component {
             <div className="dashboard">
                 <div className="container">
                     <div className="col-md-12">
-                        {this.props.loading ? <div> <Spinner /> </div> : <div> {dsiplayArticle} </div>}
+                        {this.props.loading || this.props.posts.post === null ? <div> <Spinner /> </div> : <div> {dsiplayArticle} </div>}
                     </div>
                 </div>
             </div>
