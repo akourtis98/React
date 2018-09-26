@@ -1,3 +1,3 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-./home/akourtis/Desktop/React-Blog-Enem/server/config/sendgridkey.js
+./config/sendgridkey.js
