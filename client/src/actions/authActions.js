@@ -11,10 +11,23 @@ import {
     CLEAR_CURRENT_USER
 } from "./types";
 
+// Register user
+export const registerUser = (userData, history) => dispatch => {
+    axios
+        .post("http://localhost:5000/routes/auth/register", userData)
+        .then(res => history.push("/login"))
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+
 // Login - Get User Token
 export const loginUser = (userData, history) => dispatch => {
     axios
-        .post("http://localhost:5000/routes/index/login/", userData)
+        .post("http://localhost:5000/routes/auth/login", userData)
         .then(res => {
             // Save to localStorage
             let { token } = res.data;

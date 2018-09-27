@@ -9,3 +9,7 @@ export const LOADING = "LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const CLEAR_CURRENT_USER = "CLEAR_CURRENT_USER";
 export const SEND_MAIL = "SEND_MAIL";
+export const GET_USER = "GET_USER";
+export const GET_PROFILES = "GET_PROFILES";
+export const GET_PROFILE = "GET_PROFILE";
+export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";

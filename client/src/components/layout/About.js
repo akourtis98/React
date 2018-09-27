@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getSuggestedPosts } from "../../actions/postsActions";
+import { getSuggestedPosts } from "../../actions/otherActions";
 import { connect } from 'react-redux';
 import Suggestions from '../common/other/Suggestions';
 

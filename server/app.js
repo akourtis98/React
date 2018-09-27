@@ -5,7 +5,10 @@ const passport = require("passport");
 const cors = require("cors");
 
 // Routes
-const indexRouter = require("./routes/index");
+const authRouter = require("./routes/auth");
+const otherRouter = require("./routes/other");
+const postsRouter = require("./routes/posts");
+const profileRouter = require("./routes/profile");
 
 const app = express();
 
@@ -39,7 +42,10 @@ app.use(
   })
 );
 
-app.use("/routes/index/", indexRouter);
+app.use("/routes/auth/", authRouter);
+app.use("/routes/other/", otherRouter);
+app.use("/routes/posts/", postsRouter);
+app.use("/routes/profile/", profileRouter);
 
 const port = process.env.PORT || 5000;
 

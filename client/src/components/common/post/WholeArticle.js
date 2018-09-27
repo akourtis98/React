@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CommentSection from '../comments/CommentSection';
 
 class WholeArticle extends Component {
@@ -30,15 +29,10 @@ class WholeArticle extends Component {
                         <p>{this.props.body}</p>
                     </div>
                 </div>
-                <CommentSection />
+                <CommentSection comments={this.props.comments} />
             </div >
         )
     }
-}
-
-WholeArticle.propTypes = {
-    title: PropTypes.string,
-    body: PropTypes.string
 }
 
 export default WholeArticle;

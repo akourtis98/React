@@ -1,11 +1,9 @@
 import {
     GET_POSTS,
     GET_POST,
-    CLEAR_ERRORS,
     DELETE_POST,
     LOADING,
     GET_ERRORS,
-    SEND_MAIL,
     ADD_POST
 } from './types';
 
@@ -15,7 +13,7 @@ import axios from 'axios';
 export const submitPost = (post, history) => dispatch => {
     setLoading();
     axios
-        .post("http://localhost:5000/routes/index/", post)
+        .post("http://localhost:5000/routes/posts/new/post", post)
         .then(res => dispatch({
             type: ADD_POST,
             payload: res.data
@@ -34,7 +32,7 @@ export const submitPost = (post, history) => dispatch => {
 export const editPost = (history, id, data) => dispatch => {
     setLoading();
     axios
-        .post(`http://localhost:5000/routes/index/edit/${id}`, data)
+        .post(`http://localhost:5000/routes/posts/edit/${id}`, data)
         .then(res => dispatch({
             type: ADD_POST,
             payload: res.data
@@ -51,7 +49,7 @@ export const editPost = (history, id, data) => dispatch => {
 // Add Like
 export const addLike = id => dispatch => {
     axios
-        .post(`http://localhost:5000/routes/index/like/${id}`)
+        .post(`http://localhost:5000/routes/posts/like/${id}`)
         .then(res => dispatch(getAllposts()))
         .catch(err =>
             dispatch({
@@ -64,7 +62,7 @@ export const addLike = id => dispatch => {
 // Remove Like
 export const removeLike = id => dispatch => {
     axios
-        .post(`http://localhost:5000/routes/index/unlike/${id}`)
+        .post(`http://localhost:5000/routes/posts/unlike/${id}`)
         .then(res => dispatch(getAllposts()))
         .catch(err =>
             dispatch({
@@ -78,7 +76,7 @@ export const removeLike = id => dispatch => {
 export const deletePost = id => dispatch => {
     setLoading();
     axios
-        .delete(`http://localhost:5000/routes/index/${id}`)
+        .delete(`http://localhost:5000/routes/posts/delete/${id}`)
         .then(res => {
             dispatch({
                 type: DELETE_POST,
@@ -99,7 +97,7 @@ export const deletePost = id => dispatch => {
 export const getAllposts = () => dispatch => {
     setLoading();
     axios
-        .get('http://localhost:5000/routes/index/get')
+        .get('http://localhost:5000/routes/posts/get/posts')
         .then(res =>
             dispatch({
                 type: GET_POSTS,
@@ -118,7 +116,7 @@ export const getAllposts = () => dispatch => {
 export const getPost = id => dispatch => {
     setLoading();
     axios
-        .get(`http://localhost:5000/routes/index/get/${id}`)
+        .get(`http://localhost:5000/routes/posts/get/post/${id}`)
         .then(res =>
             dispatch({
                 type: GET_POST,
@@ -133,61 +131,9 @@ export const getPost = id => dispatch => {
         );
 };
 
-export const sendMail = (history, data) => dispatch => {
-    console.log("chedked");
-    setLoading();
-    axios
-        .post('http://localhost:5000/routes/index/email/', data)
-        .then(res =>
-            dispatch({
-                type: SEND_MAIL,
-                payload: res.data
-            })
-        )
-        .then(res => history.push('/'))
-        .catch(err =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            }))
-}
-
-// Post post
-export const getSuggestedPosts = handle => dispatch => {
-    if (handle === null || handle === "") {
-        return dispatch({
-            type: GET_POSTS,
-            payload: {}
-        });
-    } else {
-        axios
-            .get(`http://localhost:5000/routes/index/search/${handle}`)
-            .then(res => {
-                return dispatch({
-                    type: GET_POSTS,
-                    payload: res.data
-                });
-            })
-            .catch(err =>
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: err.response.data
-                })
-            );
-    }
-
-};
-
 // Set loading state
 export const setLoading = () => {
     return {
         type: LOADING
-    };
-};
-
-// Clear errors
-export const clearErrors = () => {
-    return {
-        type: CLEAR_ERRORS
     };
 };

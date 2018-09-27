@@ -11,15 +11,19 @@ class Post extends Component {
     }
 
     render() {
-        const post = this.props.posts.post;
-        const dsiplayArticle = (
-            <div>
-                <WholeArticle
-                    title={post.title}
-                    body={post.body}
-                />
-            </div>
-        )
+        let dsiplayArticle = ""
+        const { post } = this.props.posts;
+        if (post.comments !== undefined) {
+            dsiplayArticle = (
+                <div>
+                    <WholeArticle
+                        title={post.title}
+                        body={post.body}
+                        comments={post.comments}
+                    />
+                </div>
+            )
+        }
         return (
             <div className="dashboard">
                 <div className="container">

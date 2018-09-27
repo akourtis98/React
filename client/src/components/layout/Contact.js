@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { sendMail } from '../../actions/postsActions.js';
+import { sendMail } from '../../actions/otherActions';
 import TextFieldGroup from '../common/other/TextFieldGroup.js';
 import TextAreaFieldGroup from '../common/other/TextAreaFieldGroup.js';
 
