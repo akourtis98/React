@@ -1,13 +1,13 @@
 import React from 'react';
 
 const Suggestions = ({
-    posts
+    users
 }) => (
         <div className="suggestionsdiv">
             {
-                posts.map(el => (
+                users.map(el => (
                     <div key={el._id}>
-                        <a href={"/post/" + el._id}>{el.title}</a>
+                        <a href={"/profile/" + el.username}>{el.username}</a>
                     </div>
                 ))
             }

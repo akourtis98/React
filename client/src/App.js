@@ -17,7 +17,7 @@ import Landing from "./components/layout/Landing";
 import Homepage from "./components/layout/Homepage";
 import Limbo from "./components/layout/Limbo";
 import Contact from "./components/layout/Contact";
-import CreateProfile from "./components/profile/CreateProfile";
+import CreateProfile from "./components/form/CreateProfile";
 import About from "./components/layout/About";
 import Post from "./components/common/post/Post";
 import Login from "./components/auth/Login";
@@ -25,7 +25,10 @@ import Register from "./components/auth/Register";
 import CreatePost from "./components/form/CreatePost";
 import EditPost from "./components/form/EditPost";
 import Dashboard from "./components/layout/Dashboard";
+import MyProfile from "./components/profile/MyProfile";
+import Profile from "./components/profile/Profile";
 import CV from "./components/layout/CV";
+import NotFound from "./components/not-found/NotFound";
 
 import "./resources/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -62,18 +65,25 @@ class App extends Component {
             <Navbar />
             <Switch>
               <Route exact path="/" component={Landing} />
-              <Route exact path="/limbo" component={Limbo} />
-              <Route exact path="/home" component={Homepage} />
-              <Route exact path="/About" component={About} />
-              <Route exact path="/Contact" component={Contact} />
-              <Route exact path="/resume" component={CV} />
-              <PrivateRoute exact path="/post/:id" component={Post} />
-              <PrivateRoute exact path="/edit/:id" component={EditPost} />
-              <PrivateRoute exact path="/create/profile" component={CreateProfile} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <PrivateRoute exact path="/new" component={CreatePost} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <div>
+                <Switch>
+                  <Route exact path="/limbo" component={Limbo} />
+                  <PrivateRoute exact path="/home" component={Homepage} />
+                  <Route exact path="/About" component={About} />
+                  <Route exact path="/Contact" component={Contact} />
+                  <Route exact path="/resume" component={CV} />
+                  <PrivateRoute exact path="/profile" component={MyProfile} />
+                  <PrivateRoute exact path="/profile/:username" component={Profile} />
+                  <PrivateRoute exact path="/post/:id" component={Post} />
+                  <PrivateRoute exact path="/edit/:id" component={EditPost} />
+                  <PrivateRoute exact path="/create/profile" component={CreateProfile} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/register" component={Register} />
+                  <PrivateRoute exact path="/new" component={CreatePost} />
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                  <Route exact path="*" component={NotFound} />
+                </Switch>
+              </div>
             </Switch>
             <Footer />
           </div>

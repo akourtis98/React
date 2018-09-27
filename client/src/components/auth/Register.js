@@ -20,7 +20,7 @@ class Register extends Component {
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            this.props.history.push("/home");
         }
     }
 
@@ -48,6 +48,16 @@ class Register extends Component {
                                     <p className="lead text-center display-4 my-4">
                                         Create your Blog account
                                     </p>
+
+                                    <TextFieldGroup
+                                        placeholder="username"
+                                        name="username"
+                                        type="text"
+                                        label="Enter username"
+                                        info="Enter username"
+                                        onChange={this.onChange}
+                                        error={errors.username}
+                                    />
 
                                     <TextFieldGroup
                                         placeholder="Email Address"

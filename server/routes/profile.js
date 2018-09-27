@@ -11,27 +11,6 @@ const Profile = require("../models/Profile");
 // Load User Model
 const User = require("../models/User");
 
-// @route   GET api/profile/:id
-// @desc    Get profile by id
-// @access  Public
-router.get(
-    "get/profile/:id",
-    passport.authenticate("jwt", { session: false }),
-    (req, res) => {
-        const errors = {};
-
-        Profile.findById(req.params.id)
-            .then(profile => {
-                if (!profile) {
-                    errors.noprofile = "There is no profile for this user";
-                    res.status(404).json(errors);
-                }
-                res.json(profile);
-            })
-            .catch(err => res.status(404).json(err));
-    }
-);
-
 // @route   GET api/profile
 // @desc    Get current users profile
 // @access  Private
@@ -42,6 +21,28 @@ router.get(
         const errors = {};
 
         Profile.findOne({ user: req.user.id })
+            .then(profile => {
+                if (!profile) {
+                    errors.noprofile = "There is no profile for this user";
+                    return res.status(404).json(errors);
+                }
+                res.json(profile);
+            })
+            .catch(err => res.status(404).json(err));
+    }
+);
+
+
+// @route   GET api/profile
+// @desc    Get current users profile
+// @access  Private
+router.get(
+    "/get/profile/:username",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+        const errors = {};
+
+        Profile.findOne({ username: req.params.username })
             .then(profile => {
                 if (!profile) {
                     errors.noprofile = "There is no profile for this user";
@@ -71,6 +72,7 @@ router.post(
         // Get fields
         const profileFields = {};
         profileFields.user = req.user.id;
+        profileFields.username = req.user.username;
         if (req.body.company) profileFields.company = req.body.company;
         if (req.body.website) profileFields.website = req.body.website;
         if (req.body.location) profileFields.location = req.body.location;

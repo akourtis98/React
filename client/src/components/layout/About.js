@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getSuggestedPosts } from "../../actions/otherActions";
+import { getSuggestedUsers } from "../../actions/otherActions";
 import { connect } from 'react-redux';
 import Suggestions from '../common/other/Suggestions';
 
@@ -15,11 +15,11 @@ class About extends Component {
   }
 
   onSearchChange = e => {
-    this.props.getSuggestedPosts(e.target.value);
+    this.props.getSuggestedUsers(e.target.value);
   }
 
   render() {
-    const { posts } = this.props.posts;
+    const { users } = this.props.auth;
 
     return (
       <div>
@@ -48,11 +48,11 @@ class About extends Component {
             </div>
             <div className="col-lg-4">
               <div className="well">
-                <h4>Blog Search</h4>
+                <h4>Blog Search users:</h4>
                 <div className="input-group">
                   <input onChange={this.onChange} type="text" className="form-control" />
-                  {(Object.keys(posts).length > 0) ? <Suggestions
-                    posts={posts}
+                  {(Object.keys(users).length > 0) ? <Suggestions
+                    users={users}
                   />
                     : ""}
                   <span className="input-group-btn" >
@@ -75,12 +75,12 @@ class About extends Component {
 }
 
 About.propTypes = {
-  posts: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-  posts: state.posts,
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getSuggestedPosts })(About);
+export default connect(mapStateToProps, { getSuggestedUsers })(About);
 

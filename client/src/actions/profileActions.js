@@ -8,10 +8,10 @@ import {
 } from "./types";
 
 // Get profile by handle
-export const getProfileById = id => dispatch => {
+export const getProfileByUsername = username => dispatch => {
     setLoading();
     axios
-        .get(`http://localhost:5000/routes/profile/get/profile/${id}`)
+        .get(`http://localhost:5000/routes/profile/get/profile/${username}`)
         .then(res => {
             dispatch({
                 type: GET_PROFILE,

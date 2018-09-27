@@ -2,17 +2,29 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, clearCurrentUser } from "../../actions/authActions";
+import { getCurrentProfile } from "../../actions/profileActions";
 
 class Header extends Component {
+    componentWillMount() {
+        this.props.getCurrentProfile();
+    }
+
     onLogoutClick(e) {
         this.props.clearCurrentUser();
         this.props.logoutUser();
     }
 
     render() {
-        let loggedIn = this.props.auth.isAuthenticated;
+        const { isAuthenticated } = this.props.auth;
+        const { user } = this.props.auth;
+        const { profile } = this.props.profile;
+        let hasProfile;
 
-        const admin = (
+        Object.keys(profile).length === 0
+            ? (hasProfile = false)
+            : (hasProfile = true);
+
+        const authedLinks = (
             <header>
                 <nav className="navbar navbar-expand-md navbar-light bg-light ">
                     <div className="container">
@@ -52,6 +64,44 @@ class Header extends Component {
                                         <a href="/dashboard" className="nav-link">
                                             Manage posts
                                 </a>
+                                    </li>
+                                    <li>
+                                        <a href="/profile/" className="nav-link">
+                                            My profile
+                                </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        );
+
+        const limitedLink = (
+            <header>
+                <nav className="navbar navbar-expand-md navbar-light bg-light ">
+                    <div className="container">
+                        <a className="navbar-brand em-text" href="/">
+                            Enem's Blog
+                    </a>
+
+                        <div className="collapse navbar-collapse" id="navbarsExample09">
+                            <div className="collapse navbar-collapse float-right" id="mobile-nav">
+                                <ul className="navbar-nav ml-auto">
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/create/profile">
+                                            Create Profile
+                </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a
+                                            href="/dashboard"
+                                            onClick={this.onLogoutClick.bind(this)}
+                                            className="nav-link"
+                                        >
+                                            Log out
+                </a>
                                     </li>
                                 </ul>
                             </div>
@@ -107,9 +157,12 @@ class Header extends Component {
 
         return (
             <div>
-                {loggedIn
-                    ? admin
-                    : guestLinks}
+                {!isAuthenticated
+                    ? guestLinks
+                    : hasProfile
+                        ? authedLinks
+                        : limitedLink
+                }
             </div>
         );
     }
@@ -118,14 +171,17 @@ class Header extends Component {
 Header.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     clearCurrentUser: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    profile: state.profile
 });
 
 export default connect(
     mapStateToProps,
-    { logoutUser, clearCurrentUser }
+    { logoutUser, clearCurrentUser, getCurrentProfile }
 )(Header);

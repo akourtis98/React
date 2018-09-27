@@ -112,6 +112,25 @@ export const getAllposts = () => dispatch => {
         );
 };
 
+// Get all articles
+export const getAllpostsOfUser = () => dispatch => {
+    setLoading();
+    axios
+        .get(`http://localhost:5000/routes/posts/get/userposts/`)
+        .then(res =>
+            dispatch({
+                type: GET_POSTS,
+                payload: res.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+
 // Get article
 export const getPost = id => dispatch => {
     setLoading();

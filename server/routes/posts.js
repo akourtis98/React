@@ -6,8 +6,6 @@ const validatePost = require("../Validation/Posts");
 
 // Post model
 const Post = require('../models/Post');
-// Profile model
-const User = require('../models/User');
 
 // @route   GET routes/index/get
 // @desc    Get posts
@@ -18,6 +16,14 @@ router.get('/get/posts',
             .sort({ date: -1 })
             .then(posts => res.json(posts))
             .catch(err => res.status(404).json({ nopostsfound: 'No posts found' + err }));
+    });
+
+router.get('/get/userposts',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        Post.find({ author_id: req.user.id })
+            .then(posts => res.json(posts))
+            .catch(err => res.status(404).json('No article found'));
     });
 
 // @route   GET routes/index/get/:id
@@ -51,7 +57,7 @@ router.post(
         const newPost = new Post({
             title: req.body.title,
             body: req.body.body,
-            // comments: req.body.comments !== undefined ? comments : null,
+            author_id: req.user.id,
             date: Date.now()
         });
 

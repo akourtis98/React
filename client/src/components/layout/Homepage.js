@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { getAllposts } from '../../actions/postsActions';
 import Spinner from "../common/spinner/Spinner";
 import PostsFeed from '../common/post/PostsFeed'
+import { getCurrentProfile } from "../../actions/profileActions";
 
 class Homepage extends Component {
   componentWillMount() {
+    this.props.getCurrentProfile();
     this.props.getAllposts();
   }
 
@@ -24,6 +26,7 @@ class Homepage extends Component {
       <div className="dashboard">
         <div className="container">
           <div className="col-md-12">
+            <h1>welcome: {this.props.auth.user.username}</h1>
             <h2> These are all the posts: </h2>
             <hr />
             {content}
@@ -43,8 +46,9 @@ Homepage.propTypes = {
 const mapStateToProps = state => ({
   loading: state.posts.loading,
   posts: state.posts,
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { getAllposts })(
+export default connect(mapStateToProps, { getAllposts, getCurrentProfile })(
   Homepage
 );

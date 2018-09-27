@@ -13,6 +13,7 @@ import {
 
 // Register user
 export const registerUser = (userData, history) => dispatch => {
+    clearErrors();
     axios
         .post("http://localhost:5000/routes/auth/register", userData)
         .then(res => history.push("/login"))
@@ -26,6 +27,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - Get User Token
 export const loginUser = (userData, history) => dispatch => {
+    clearErrors();
     axios
         .post("http://localhost:5000/routes/auth/login", userData)
         .then(res => {

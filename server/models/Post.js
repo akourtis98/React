@@ -16,6 +16,10 @@ const PostSchema = new Schema({
     },
     comments: {
         type: Array
+    },
+    author_id: {
+        type: String,
+        required: true
     }
 })
 

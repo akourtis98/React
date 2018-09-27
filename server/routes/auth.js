@@ -22,27 +22,35 @@ router.post("/register", (req, res) => {
         return res.status(400).json(errors);
     }
 
-    User.findOne({ email: req.body.email }).then(user => {
-        if (user) {
-            errors.email = "Email already exists";
-            return res.status(400).json(errors);
+    User.findOne({ username: req.body.username }).then(username => {
+        if (!username) {
+            User.findOne({ email: req.body.email }).then(user => {
+                if (user) {
+                    errors.email = "Email already exists";
+                    return res.status(400).json(errors);
+                } else {
+
+                    const newUser = new User({
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: req.body.password
+                    });
+
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newUser.password, salt, (err, hash) => {
+                            if (err) throw err;
+                            newUser.password = hash;
+                            newUser
+                                .save()
+                                .then(user => res.json(user))
+                                .catch(err => console.log(err));
+                        });
+                    });
+                }
+            });
         } else {
-
-            const newUser = new User({
-                email: req.body.email,
-                password: req.body.password
-            });
-
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    newUser.password = hash;
-                    newUser
-                        .save()
-                        .then(user => res.json(user))
-                        .catch(err => console.log(err));
-                });
-            });
+            errors.username = "Username already exists";
+            return res.status(400).json(errors);
         }
     });
 });

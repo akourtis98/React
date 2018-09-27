@@ -8,6 +8,8 @@ const validateEmailForm = require("../Validation/Email");
 
 // Post model
 const Post = require('../models/Post');
+// User model
+const User = require('../models/User');
 
 router.post('/email', (req, res) => {
   const { errors, isValid } = validateEmailForm(req.body);
@@ -30,19 +32,19 @@ router.post('/email', (req, res) => {
   } catch (err) { return res.status(500).json("Sorry, something went wrong: " + err) };
 });
 
-router.get('/search/:handle', (req, res) => {
+router.get('/search/:username', (req, res) => {
   let data = [];
 
-  Post.find()
-    .then(posts => {
-      posts.forEach(el => {
-        if (el.title.toLowerCase().includes(req.params.handle.toLowerCase())) {
+  User.find()
+    .then(user => {
+      user.forEach(el => {
+        if (el.username.toLowerCase().includes(req.params.username.toLowerCase())) {
           data.push(el);
         }
       });
       return res.json(data)
     })
-    .catch(err => res.status(404).json({ nopostsfound: 'No posts found' + err }));
+    .catch(err => res.status(404).json('No posts found' + err));
 });
 
 module.exports = router;

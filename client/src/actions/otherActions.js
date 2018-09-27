@@ -1,6 +1,6 @@
 import {
-    GET_POSTS,
     LOADING,
+    GET_USERS,
     GET_ERRORS,
     SEND_MAIL,
 } from './types';
@@ -26,19 +26,19 @@ export const sendMail = (history, data) => dispatch => {
 }
 
 // Post post
-export const getSuggestedPosts = handle => dispatch => {
+export const getSuggestedUsers = username => dispatch => {
     setLoading();
-    if (handle === null || handle === "") {
+    if (username === null || username === "") {
         return dispatch({
-            type: GET_POSTS,
+            type: GET_USERS,
             payload: {}
         });
     } else {
         axios
-            .get(`http://localhost:5000/routes/other/search/${handle}`)
+            .get(`http://localhost:5000/routes/other/search/${username}`)
             .then(res => {
                 return dispatch({
-                    type: GET_POSTS,
+                    type: GET_USERS,
                     payload: res.data
                 });
             })
