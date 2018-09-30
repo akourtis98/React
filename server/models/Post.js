@@ -7,16 +7,44 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    body: {
+    text: {
         type: String,
         required: true
     },
+    name: {
+        type: String
+    },
+    comments: [
+        {
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: 'users'
+            },
+            text: {
+                type: String,
+                required: true
+            },
+            name: {
+                type: String
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
     date: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
-    comments: {
-        type: Array
-    },
+    likes: [
+        {
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: 'users'
+            }
+        }
+    ],
     author_id: {
         type: String,
         required: true

@@ -26,10 +26,11 @@ class WholeArticle extends Component {
                     <img className="card-img-top" src="http://placehold.it/350x200" alt="Card cap" />
                     <div className="card-body">
                         <h2 className="card-title">{this.props.title} </h2>
-                        <p>{this.props.body}</p>
+                        <p>{this.props.text}</p>
+                        <a href="/">Like</a>
                     </div>
                 </div>
-                <CommentSection comments={this.props.comments} />
+                <CommentSection id={this.props.id} comments={this.props.comments} />
             </div >
         )
     }

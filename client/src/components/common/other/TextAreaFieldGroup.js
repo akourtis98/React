@@ -8,6 +8,7 @@ const TextAreaFieldGroup = ({
     label,
     error,
     info,
+    cols,
     rows,
     onChange
 }) => {
@@ -16,6 +17,7 @@ const TextAreaFieldGroup = ({
             <label htmlFor="exampleInputEmail"><h4>{label}</h4></label>
             <textarea
                 name={name}
+                cols={cols}
                 rows={rows}
                 className={classnames('form-control form-control-lg', {
                     'is-invalid': error
@@ -33,6 +35,7 @@ TextAreaFieldGroup.propTypes = {
     rows: PropTypes.string,
     placeholder: PropTypes.string,
     label: PropTypes.string,
+    cols: PropTypes.number,
     error: PropTypes.string,
     info: PropTypes.string,
     onChange: PropTypes.func,

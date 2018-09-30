@@ -4,12 +4,8 @@ const isEmpty = require('./isEmpty');
 module.exports = function validatePostInput(data) {
     let errors = {};
 
-    Object.keys(data).map(key => {
-        data[key] = !isEmpty(data[key]) ? data[key] : '';
-    });
-
-    if (!validator.isLength(data.body, { min: 1, max: 600 })) {
-        errors.body = 'Post must be between 1 and 600 characters';
+    if (!validator.isLength(data.text, { min: 1, max: 600 })) {
+        errors.text = 'Post must be between 1 and 600 characters';
     }
 
     Object.keys(data).map(key => {

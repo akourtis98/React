@@ -4,6 +4,7 @@ import {
     DELETE_POST,
     LOADING,
     GET_ERRORS,
+    CLEAR_ERRORS,
     ADD_POST
 } from './types';
 
@@ -11,7 +12,7 @@ import axios from 'axios';
 
 // Post post
 export const submitPost = (post, history) => dispatch => {
-    setLoading();
+    dispatch(setLoading())
     axios
         .post("http://localhost:5000/routes/posts/new/post", post)
         .then(res => dispatch({
@@ -30,7 +31,7 @@ export const submitPost = (post, history) => dispatch => {
 
 // Add Post
 export const editPost = (history, id, data) => dispatch => {
-    setLoading();
+    dispatch(setLoading())
     axios
         .post(`http://localhost:5000/routes/posts/edit/${id}`, data)
         .then(res => dispatch({
@@ -46,6 +47,46 @@ export const editPost = (history, id, data) => dispatch => {
             })
         );
 };
+
+
+// Add Comment
+export const addComment = (postId, commentData) => dispatch => {
+    dispatch(clearErrors());
+    axios
+        .post(`http://localhost:5000/routes/posts/add/comment/${postId}`, commentData)
+        .then(res =>
+            dispatch({
+                type: GET_POST,
+                payload: res.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+
+// Delete Comment
+export const deleteComment = (postId, commentId) => dispatch => {
+    axios
+        .delete(`http://localhost:5000/routes/posts/comment/${postId}/${commentId}`)
+        .then(res =>
+            dispatch({
+                type: GET_POST,
+                payload: res.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+
+
 // Add Like
 export const addLike = id => dispatch => {
     axios
@@ -95,7 +136,7 @@ export const deletePost = id => dispatch => {
 
 // Get all articles
 export const getAllposts = () => dispatch => {
-    setLoading();
+    dispatch(setLoading())
     axios
         .get('http://localhost:5000/routes/posts/get/posts')
         .then(res =>
@@ -114,7 +155,7 @@ export const getAllposts = () => dispatch => {
 
 // Get all articles
 export const getAllpostsOfUser = () => dispatch => {
-    setLoading();
+    dispatch(setLoading())
     axios
         .get(`http://localhost:5000/routes/posts/get/userposts/`)
         .then(res =>
@@ -133,7 +174,7 @@ export const getAllpostsOfUser = () => dispatch => {
 
 // Get article
 export const getPost = id => dispatch => {
-    setLoading();
+    dispatch(setLoading())
     axios
         .get(`http://localhost:5000/routes/posts/get/post/${id}`)
         .then(res =>
@@ -148,6 +189,13 @@ export const getPost = id => dispatch => {
                 payload: err.response.data
             })
         );
+};
+
+// Clear errors
+export const clearErrors = () => {
+    return {
+        type: CLEAR_ERRORS
+    };
 };
 
 // Set loading state

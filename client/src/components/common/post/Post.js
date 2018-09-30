@@ -18,8 +18,9 @@ class Post extends Component {
                 <div>
                     <WholeArticle
                         title={post.title}
-                        body={post.body}
+                        text={post.text}
                         comments={post.comments}
+                        id={this.props.match.params.id}
                     />
                 </div>
             )

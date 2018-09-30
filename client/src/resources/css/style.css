@@ -59,3 +59,6 @@ footer p {
 .filetest {
      margin: 20px;
 }
+.message {
+  word-break: break-all 
+}

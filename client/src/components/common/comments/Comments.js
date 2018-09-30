@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { deleteComment } from '../../../actions/postsActions';
+import CommentItem from './CommentItem';
 
-const Comments = ({
-    comments
-}) => (
-        <div>
-            <div className="comment mb-2 row">
-                {
-                    comments.map(elem => (
-                        <div className="comment-content col-md-11 col-sm-10">
-                            <div className="comment-body">
-                                <p>
-                                    <h2>{elem.comment}</h2>
-                                    <br />
-                                    <a href="/" className="text-right small"><i className="ion-reply"></i> Reply</a>
-                                    <a href="/" className="text-right small"><i className="ion-reply"></i> like</a>
-                                </p>
-                            </div>
-                        </div>
-                    ))
-                }
+class Comments extends Component {
+    onDeleteClick(postId, commentId) {
+        this.props.deleteComment(postId, commentId);
+    }
+
+    render() {
+        const { user } = this.props.auth;
+
+        return (
+            <div>
+                {this.props.comments.map(comment => (
+                    <CommentItem
+                        name={comment.name}
+                        date={comment.date}
+                        text={comment.text}
+                    />
+                ))}
             </div>
-        </div>
-    )
+        )
+    }
+}
 
-export default Comments;
+Comments.propTypes = {
+    deleteComment: PropTypes.func.isRequired,
+    postId: PropTypes.string.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+
+export default connect(mapStateToProps, { deleteComment })(Comments);

@@ -16,7 +16,6 @@ class Header extends Component {
 
     render() {
         const { isAuthenticated } = this.props.auth;
-        const { user } = this.props.auth;
         const { profile } = this.props.profile;
         let hasProfile;
 

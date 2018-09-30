@@ -13,7 +13,7 @@ class CreatePost extends Component {
         this.state = {
             post: {
                 title: "",
-                body: ""
+                text: ""
             }
         };
     }
@@ -42,7 +42,7 @@ class CreatePost extends Component {
         this.setState({
             post: {
                 ...this.state.post,
-                body: e.target.value
+                text: e.target.value
             }
         });
     };
@@ -71,12 +71,12 @@ class CreatePost extends Component {
 
                     <TextAreaFieldGroup
                         placeholder=""
-                        name="body"
+                        name="text"
                         rows="5"
                         label="Write your article here"
                         info="Make sure that the content of the article is not offensive."
                         onChange={this.handleChangeBody}
-                        error={errors.body}
+                        error={errors.text}
                     />
                     <button type="submit" className="btn btn-info btn-block mt-4">
                         Submit
